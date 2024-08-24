@@ -28,15 +28,19 @@ public class IdentityService : IIdentityService
         return user?.UserName;
     }
 
-    public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+    public async Task<(Result Result, string UserId)> CreateUserAsync(ApplicationUserCreateModel userData)
     {
         var user = new ApplicationUser
         {
-            UserName = userName,
-            Email = userName,
+            UserName = userData.UserName,
+            Email = userData.UserName,
+            FirstName = userData.FirstName,
+            LastName = userData.LastName,
+            Address = userData.Address,
+            PostalCode = userData.PostalCode,
         };
 
-        var result = await _userManager.CreateAsync(user, password);
+        var result = await _userManager.CreateAsync(user, userData.Password);
 
         return (result.ToApplicationResult(), user.Id);
     }
