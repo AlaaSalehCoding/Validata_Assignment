@@ -5,7 +5,10 @@ public class Users : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
-        app.MapGroup(this)
-            .MapIdentityApi<ApplicationUser>();
+        ///Commented as customizatio to MapIdentityApi needed to reflect the new attributes
+        ///Other option was to impement the needed apis
+        //app.MapGroup(this)
+        //    .MapIdentityApi<ApplicationUser>();
+
     }
 }
