@@ -2,10 +2,16 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VirtualShop.Domain.Common;
-public abstract class BaseEntity<TId>
+
+public interface IBaseEntity
 {
-    // This can easily be modified to be BaseEntity<T> and public T Id to support different key types.
-    // Using non-generic integer types for simplicity
+    IReadOnlyCollection<BaseEvent> DomainEvents { get; }
+    void AddDomainEvent(BaseEvent domainEvent);
+    void RemoveDomainEvent(BaseEvent domainEvent);
+    void ClearDomainEvents();
+}
+public abstract class BaseEntity<TId> : IBaseEntity
+{ 
     [Key]
     public required TId Id { get; set; }
 
