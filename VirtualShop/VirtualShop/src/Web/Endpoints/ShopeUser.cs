@@ -1,8 +1,8 @@
 ﻿using VirtualShop.Application.Common.Models;
+using VirtualShop.Application.ShopUser.Commands.DeactivateUser;
+using VirtualShop.Application.ShopUser.Commands.DeleteUser;
 using VirtualShop.Application.ShopUser.Commands.LoginUser;
 using VirtualShop.Application.ShopUser.Commands.RegisterUser;
-using VirtualShop.Application.TodoItems.Commands.UpdateTodoItem;
-
 namespace VirtualShop.Web.Endpoints;
 
 public class ShopeUser : EndpointGroupBase
@@ -16,7 +16,8 @@ public class ShopeUser : EndpointGroupBase
         app.MapGroup(this)
             .RequireAuthorization()
             .MapPut(UpdateUser, "{id}")
-            .MapDelete(DeleteUser, "{id}");
+            .MapDelete(DeactivateUser, "Deactivate/{id}")
+            .MapDelete(DeleteUser, "Delete/{id}");
     }
     public async Task<IResult> RegisterUser(ISender sender, RegisterUserCommand command)
     {
@@ -44,14 +45,35 @@ public class ShopeUser : EndpointGroupBase
         }
     }
 
-    public IResult UpdateUser(ISender sender, int id, dynamic command)
+    public IResult UpdateUser(ISender sender, string id, dynamic command)
     {
         return TypedResults.Problem("not emplemented", statusCode: StatusCodes.Status400BadRequest);
     }
 
-    public IResult DeleteUser(ISender sender, int id )
+    public async Task<IResult> DeactivateUser(ISender sender, string id )
     {
-        //need to consider soft delete
-        return TypedResults.Problem("not emplemented", statusCode: StatusCodes.Status400BadRequest);
+        var command = new DeactivateUserCommand() { UserId = id };
+        var resault = await sender.Send(command);
+        if (resault.Succeeded)
+        {
+            return Results.NoContent();
+        }
+        else
+        {
+            return Results.BadRequest(resault);
+        }
+    }
+    public async Task<IResult> DeleteUser(ISender sender, string id)
+    {
+        var command = new DeleteUserCommand() { UserId = id };
+        var resault = await sender.Send(command);
+        if (resault.Succeeded)
+        {
+            return Results.NoContent();
+        }
+        else
+        {
+            return Results.BadRequest(resault);
+        }
     }
 }

@@ -19,5 +19,7 @@ public class ApplicationUser : IdentityUser
     [Required]
     [StringLength(5)]
     public string PostalCode { get; set; } = string.Empty;
+
+    public bool IsActive { get; set; } = true;
 }
 

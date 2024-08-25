@@ -90,7 +90,7 @@ public class IdentityService : IIdentityService
     public async Task<bool> isUniqueUsername(string userName)
     {
         var user = await _userManager.FindByNameAsync(userName);
-        return user == null; 
+        return user == null;
     }
 
     public async Task<bool> isUniqueEmail(string email)
@@ -101,18 +101,39 @@ public class IdentityService : IIdentityService
 
     public async Task<Result> Login(string username, string password)
     {
-        var signInManager = _signInManager;
+        var user = await _userManager.FindByNameAsync(username);
+        if (user is null)
+        {
+            return Result.Failure(["No such user"]);
+        }
+        if (user.IsActive == false)
+        {
+            return Result.Failure(["this user is not active"]);
+        }
 
         var useCookieScheme = false;
         var isPersistent = false;
-        signInManager.AuthenticationScheme = useCookieScheme ? IdentityConstants.ApplicationScheme : IdentityConstants.BearerScheme;
+        _signInManager.AuthenticationScheme = useCookieScheme ? IdentityConstants.ApplicationScheme : IdentityConstants.BearerScheme;
 
-        var result = await signInManager.PasswordSignInAsync(username, password, isPersistent, lockoutOnFailure: true);
+        var result = await _signInManager.PasswordSignInAsync(username, password, isPersistent, lockoutOnFailure: true);
 
         if (!result.Succeeded)
         {
             return Result.Failure([result.ToString()]);
         }
         return Result.Success();
+    }
+
+    public async Task<Result> DeactivateUser(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user is null)
+        {
+            return Result.Failure(["No such user"]);
+        }
+        user.IsActive = false;
+        var result = await _userManager.UpdateAsync(user);
+        return result.ToApplicationResult();
+
     }
 }

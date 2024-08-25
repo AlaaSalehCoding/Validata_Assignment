@@ -2,5 +2,6 @@
 
 public abstract class Policies
 {
-    public const string CanPurge = nameof(CanPurge);
+    public const string CanDeactivateUser = nameof(CanDeactivateUser);
+    public const string CanDeleteUser = nameof(CanDeleteUser);
 }

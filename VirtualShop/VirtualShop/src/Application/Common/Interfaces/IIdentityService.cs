@@ -15,5 +15,6 @@ public interface IIdentityService
     Task<Result> DeleteUserAsync(string userId);
     Task<bool> isUniqueUsername(string userName);
     Task<bool> isUniqueEmail(string email);
+    Task<Result> DeactivateUser(string userId);
 }
 

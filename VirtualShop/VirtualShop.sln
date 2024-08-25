@@ -3,21 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "VirtualShop\src\Application\Application.csproj", "{56D79A85-622D-471D-95A4-5452A43EA6B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "VirtualShop\src\Application\Application.csproj", "{56D79A85-622D-471D-95A4-5452A43EA6B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "VirtualShop\src\Domain\Domain.csproj", "{EA6A1252-8736-4759-B0B9-1543D5462C5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "VirtualShop\src\Domain\Domain.csproj", "{EA6A1252-8736-4759-B0B9-1543D5462C5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "VirtualShop\src\Infrastructure\Infrastructure.csproj", "{6C08EDEF-9AE2-484A-BA5A-E86EE0F9B2CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "VirtualShop\src\Infrastructure\Infrastructure.csproj", "{6C08EDEF-9AE2-484A-BA5A-E86EE0F9B2CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "VirtualShop\src\Web\Web.csproj", "{B1ABC1F9-F47C-4601-B93E-C66D56A362E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "VirtualShop\src\Web\Web.csproj", "{B1ABC1F9-F47C-4601-B93E-C66D56A362E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.FunctionalTests", "VirtualShop\tests\Application.FunctionalTests\Application.FunctionalTests.csproj", "{CE12A95C-281C-442C-BC74-00C1E2BB07D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.FunctionalTests", "VirtualShop\tests\Application.FunctionalTests\Application.FunctionalTests.csproj", "{CE12A95C-281C-442C-BC74-00C1E2BB07D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.UnitTests", "VirtualShop\tests\Application.UnitTests\Application.UnitTests.csproj", "{050AD352-F193-40AB-BC24-C25615F0A096}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.UnitTests", "VirtualShop\tests\Application.UnitTests\Application.UnitTests.csproj", "{050AD352-F193-40AB-BC24-C25615F0A096}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.UnitTests", "VirtualShop\tests\Domain.UnitTests\Domain.UnitTests.csproj", "{AC8E7903-FEC2-468F-8CD6-8B0059000590}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UnitTests", "VirtualShop\tests\Domain.UnitTests\Domain.UnitTests.csproj", "{AC8E7903-FEC2-468F-8CD6-8B0059000590}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.IntegrationTests", "VirtualShop\tests\Infrastructure.IntegrationTests\Infrastructure.IntegrationTests.csproj", "{DAAE421A-7E50-4D17-BF0F-39A3BA945EC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.IntegrationTests", "VirtualShop\tests\Infrastructure.IntegrationTests\Infrastructure.IntegrationTests.csproj", "{DAAE421A-7E50-4D17-BF0F-39A3BA945EC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F63B18A2-5F5B-4B2D-931D-A73B85099EE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +62,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CE12A95C-281C-442C-BC74-00C1E2BB07D1} = {F63B18A2-5F5B-4B2D-931D-A73B85099EE8}
+		{050AD352-F193-40AB-BC24-C25615F0A096} = {F63B18A2-5F5B-4B2D-931D-A73B85099EE8}
+		{AC8E7903-FEC2-468F-8CD6-8B0059000590} = {F63B18A2-5F5B-4B2D-931D-A73B85099EE8}
+		{DAAE421A-7E50-4D17-BF0F-39A3BA945EC0} = {F63B18A2-5F5B-4B2D-931D-A73B85099EE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7219A45D-4CD3-4FB2-B1AF-7D1414DEDD4C}
