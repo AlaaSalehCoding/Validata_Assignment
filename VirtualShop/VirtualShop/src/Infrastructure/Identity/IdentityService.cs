@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using VirtualShop.Application.Common.Interfaces;
 using VirtualShop.Application.Common.Models;
 using VirtualShop.Application.ShopUser.Commands.RegisterUser;
+using VirtualShop.Domain.Constants;
 
 namespace VirtualShop.Infrastructure.Identity;
 public class IdentityService : IIdentityService
@@ -13,17 +14,20 @@ public class IdentityService : IIdentityService
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly IAuthorizationService _authorizationService;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
     public IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService,
-        SignInManager<ApplicationUser> signInManager)
+        SignInManager<ApplicationUser> signInManager,
+        RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         _authorizationService = authorizationService;
         _signInManager = signInManager;
+        _roleManager = roleManager;
     }
 
     public async Task<string?> GetUserNameAsync(string userId)
@@ -33,16 +37,12 @@ public class IdentityService : IIdentityService
         return user?.UserName;
     }
 
-    public async Task<(Result Result, string UserId)> CreateUserAsync(string email, string password, string userName, string firstName, string lastName, string address, string postalCode)
+    public async Task<(Result Result, string UserId)> CreateUserAsync(string email, string password, string userName)
     {
         var user = new ApplicationUser
         {
             UserName = userName,
-            Email = email,
-            FirstName = firstName,
-            LastName = lastName,
-            Address = address,
-            PostalCode = postalCode,
+            Email = email
         };
 
         var result = await _userManager.CreateAsync(user, password);
@@ -135,5 +135,34 @@ public class IdentityService : IIdentityService
         var result = await _userManager.UpdateAsync(user);
         return result.ToApplicationResult();
 
+    }
+
+    public async Task<Result> AddToRoleAsync(string userId, string roleName)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user is null)
+        {
+            return Result.Failure(["No such user"]);
+        }
+
+        var role = new IdentityRole(roleName);
+
+        if (_roleManager.Roles.All(r => r.Name != role.Name))
+        {
+            var result = await _roleManager.CreateAsync(role);
+            if (result.Succeeded == false)
+            {
+                return result.ToApplicationResult();
+            }
+        }
+        if (!string.IsNullOrWhiteSpace(role.Name))
+        {
+            var result = await _userManager.AddToRolesAsync(user, new[] { role.Name });
+            if (result.Succeeded == false)
+            {
+                return result.ToApplicationResult();
+            }
+        }
+        return Result.Success();
     }
 }

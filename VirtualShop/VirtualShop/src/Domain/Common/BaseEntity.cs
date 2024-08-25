@@ -10,10 +10,14 @@ public interface IBaseEntity
     void RemoveDomainEvent(BaseEvent domainEvent);
     void ClearDomainEvents();
 }
-public abstract class BaseEntity<TId> : IBaseEntity
-{ 
+public abstract class BaseEntity<TId> : IBaseEntity 
+{
+    public BaseEntity(TId id)
+    {
+        Id = id;
+    }
     [Key]
-    public required TId Id { get; set; }
+    public TId Id { get; set; } 
 
     private readonly List<BaseEvent> _domainEvents = new();
 

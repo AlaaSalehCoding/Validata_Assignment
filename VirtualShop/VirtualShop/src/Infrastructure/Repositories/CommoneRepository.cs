@@ -16,19 +16,21 @@ public class CommoneRepository<TEntity, TId> : ICommoneRepository<TEntity, TId> 
     {
         get => _dbSet ??= _dbContext.GetSet<TEntity, TId>();
     }
-    protected CommoneRepository(IApplicationDbContext dbContext)
+    public CommoneRepository(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
-    public virtual void Add(TEntity entity)
+    public virtual async Task AddAsync(TEntity entity)
     {
-        DbSet.AddAsync(entity);
+        await DbSet.AddAsync(entity);
+        await _dbContext.SaveChangesAsync(default);
     }
-    public virtual void Update(TEntity entity)
+    public virtual async Task UpdateAsync(TEntity entity)
     {
         DbSet.Update(entity);
+        await _dbContext.SaveChangesAsync(default);
     }
-    public virtual void Delete(TEntity entity)
+    public virtual async Task DeleteAsync(TEntity entity)
     {
         if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
         {
@@ -37,6 +39,7 @@ public class CommoneRepository<TEntity, TId> : ICommoneRepository<TEntity, TId> 
         }
         else
             DbSet.Remove(entity);
+        await _dbContext.SaveChangesAsync(default);
     }
 
     public virtual IQueryable<TEntity> List(Expression<Func<TEntity, bool>> expression)

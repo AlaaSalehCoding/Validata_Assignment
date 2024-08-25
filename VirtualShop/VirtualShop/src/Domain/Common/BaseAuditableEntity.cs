@@ -12,6 +12,8 @@ public interface IBaseAuditableEntity
 }
 public abstract class BaseAuditableEntity<TId> : BaseEntity<TId>, IBaseAuditableEntity
 {
+    public BaseAuditableEntity(TId id):base(id) { }
+
     public DateTimeOffset Created { get; set; }
 
     public string? CreatedBy { get; set; }

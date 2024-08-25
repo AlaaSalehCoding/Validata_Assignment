@@ -3,15 +3,16 @@
 namespace VirtualShop.Domain.Entities;
 
 public class Item : BaseAuditableEntity<long>, ISoftDelete
-{ 
+{
+    public Item(long id) : base(id) { }
     public int Quantity { get; set; }
     public decimal Price { get; set; }
-    public int ProductId { get; set; }
+    public long ProductId { get; set; }
 
     public Product? Product { get; set; }
     [ForeignKey(nameof(ProductId))]
 
-    public int OrderId { get; set; }
+    public long OrderId { get; set; }
     [ForeignKey(nameof(OrderId))] 
     public Order? Order { get; set; }
 

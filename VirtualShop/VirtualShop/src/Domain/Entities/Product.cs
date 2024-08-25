@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 namespace VirtualShop.Domain.Entities;
 public class Product : BaseAuditableEntity<long>, ISoftDelete
 {
+    public Product(long id) : base(id) { }
+
     [Required]
     [StringLength(250)]
     public string Name { get; set; } =string.Empty;

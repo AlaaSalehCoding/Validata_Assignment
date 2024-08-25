@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using VirtualShop.Application.Common.Repository;
 using VirtualShop.Domain.Constants;
+using VirtualShop.Domain.Entities;
 using VirtualShop.Infrastructure.Data;
 using VirtualShop.Infrastructure.Identity;
 
@@ -64,7 +66,19 @@ public partial class Testing
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        var user = new ApplicationUser { UserName = userName, Email = userName, FirstName=userName, LastName="Test", Address= "Test", PostalCode= "Test" };
+        var user = new ApplicationUser { UserName = userName, Email = userName }; 
+
+        if (roles.Any(r => r.Equals(Roles.Customer)))
+        {
+            var customerRepository = scope.ServiceProvider.GetRequiredService<ICommoneRepository<Customer,long>>();
+            await customerRepository.AddAsync(new Customer(0)
+            {
+                FirstName = userName,
+                LastName = "Test",
+                Address = "Test",
+                PostalCode = "Test"
+            }); 
+        }
 
         var result = await userManager.CreateAsync(user, password);
 
