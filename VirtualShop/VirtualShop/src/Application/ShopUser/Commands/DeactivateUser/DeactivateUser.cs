@@ -21,7 +21,7 @@ public class DeactivateUserCommandValidator : AbstractValidator<DeactivateUserCo
 
 public class DeactivateUserCommandHandler : IRequestHandler<DeactivateUserCommand, Result>
 {
-    private readonly IIdentityService _identityService;
+    private readonly IIdentityService _identityService; 
 
     public DeactivateUserCommandHandler(IIdentityService identityService)
     {

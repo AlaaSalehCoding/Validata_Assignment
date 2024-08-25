@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using VirtualShop.Application.Common.Interfaces; 
+using VirtualShop.Application.Common.Interfaces;
+using VirtualShop.Domain.Common;
 using VirtualShop.Infrastructure.Identity;
 
 namespace VirtualShop.Infrastructure.Data;
@@ -9,7 +10,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
       
-
+    public DbSet<TEntity> GetSet<TEntity, TId>() where TEntity : BaseEntity<TId>
+    {
+        return this.Set<TEntity>();
+    }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
