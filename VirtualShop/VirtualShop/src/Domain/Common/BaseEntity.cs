@@ -1,40 +1,42 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
 
 namespace VirtualShop.Domain.Common;
-
-public interface IBaseEntity
+ 
+public abstract class BaseEntity
 {
-    IReadOnlyCollection<BaseEvent> DomainEvents { get; }
-    void AddDomainEvent(BaseEvent domainEvent);
-    void RemoveDomainEvent(BaseEvent domainEvent);
-    void ClearDomainEvents();
+    public object Id { get; set; } = 0;
+    public abstract IReadOnlyCollection<BaseEvent> DomainEvents { get; } 
+    public abstract void AddDomainEvent(BaseEvent domainEvent);
+    public abstract void RemoveDomainEvent(BaseEvent domainEvent);
+    public abstract void ClearDomainEvents();
 }
-public abstract class BaseEntity<TId> : IBaseEntity 
+public abstract class BaseEntity<TId>  : BaseEntity 
 {
     public BaseEntity(TId id)
     {
         Id = id;
     }
     [Key]
-    public TId Id { get; set; } 
+    public new TId Id { get; set; } 
 
     private readonly List<BaseEvent> _domainEvents = new();
 
     [NotMapped]
-    public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
-
-    public void AddDomainEvent(BaseEvent domainEvent)
+    public override IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
+     
+    public override void AddDomainEvent(BaseEvent domainEvent)
     {
         _domainEvents.Add(domainEvent);
     }
 
-    public void RemoveDomainEvent(BaseEvent domainEvent)
+    public override void RemoveDomainEvent(BaseEvent domainEvent)
     {
         _domainEvents.Remove(domainEvent);
     }
 
-    public void ClearDomainEvents()
+    public override void ClearDomainEvents()
     {
         _domainEvents.Clear();
     }

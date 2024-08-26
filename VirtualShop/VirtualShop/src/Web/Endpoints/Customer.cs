@@ -1,11 +1,11 @@
 ﻿using VirtualShop.Application.Common.Models;
-using VirtualShop.Application.ShopUser.Commands.DeactivateUser;
-using VirtualShop.Application.ShopUser.Commands.DeleteUser;
-using VirtualShop.Application.ShopUser.Commands.LoginUser;
-using VirtualShop.Application.ShopUser.Commands.RegisterUser;
+using VirtualShop.Application.Customer.Commands.DeactivateUser;
+using VirtualShop.Application.Customer.Commands.DeleteUser;
+using VirtualShop.Application.Customer.Commands.LoginUser;
+using VirtualShop.Application.Customer.Commands.RegisterUser;
 namespace VirtualShop.Web.Endpoints;
 
-public class ShopeUser : EndpointGroupBase
+public class Customer : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
@@ -19,7 +19,7 @@ public class ShopeUser : EndpointGroupBase
             .MapDelete(DeactivateUser, "Deactivate/{id}")
             .MapDelete(DeleteUser, "Delete/{id}");
     }
-    public async Task<IResult> RegisterUser(ISender sender, RegisterUserCommand command)
+    public async Task<IResult> RegisterUser(ISender sender, RegisterCustomerCommand command)
     {
         var resault = await sender.Send(command);
         if (resault.Succeeded)
@@ -32,7 +32,7 @@ public class ShopeUser : EndpointGroupBase
         } 
     }
 
-    public async Task<IResult> LoginUser(ISender sender, LoginUserCommand command)
+    public async Task<IResult> LoginUser(ISender sender, LoginCustomerCommand command)
     {
         var resault = await sender.Send(command);
         if (resault.Succeeded)
@@ -52,7 +52,7 @@ public class ShopeUser : EndpointGroupBase
 
     public async Task<IResult> DeactivateUser(ISender sender, string id )
     {
-        var command = new DeactivateUserCommand() { UserId = id };
+        var command = new DeactivateCustomerCommand() { UserId = id };
         var resault = await sender.Send(command);
         if (resault.Succeeded)
         {
@@ -65,7 +65,7 @@ public class ShopeUser : EndpointGroupBase
     }
     public async Task<IResult> DeleteUser(ISender sender, string id)
     {
-        var command = new DeleteUserCommand() { UserId = id };
+        var command = new DeleteCustomerCommand() { UserId = id };
         var resault = await sender.Send(command);
         if (resault.Succeeded)
         {

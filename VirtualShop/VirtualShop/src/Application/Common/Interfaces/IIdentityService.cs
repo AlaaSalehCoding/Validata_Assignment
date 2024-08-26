@@ -1,5 +1,5 @@
 ﻿using VirtualShop.Application.Common.Models;
-using VirtualShop.Application.ShopUser.Commands.RegisterUser;
+using VirtualShop.Application.Customer.Commands.RegisterUser;
 
 namespace VirtualShop.Application.Common.Interfaces;
 public interface IIdentityService

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VirtualShop.Application.Common.Interfaces;
 using VirtualShop.Application.Common.Models;
-using VirtualShop.Application.ShopUser.Commands.RegisterUser;
+using VirtualShop.Application.Customer.Commands.RegisterUser;
 using VirtualShop.Domain.Constants;
 
 namespace VirtualShop.Infrastructure.Identity;

@@ -1,8 +1,8 @@
 ﻿using VirtualShop.Application.Common.Models;
 
-namespace VirtualShop.Application.ShopUser.Commands.RegisterUser;
+namespace VirtualShop.Application.Customer.Commands.RegisterUser;
 
-public record RegisterUserCommand : IRequest<Result>
+public record RegisterCustomerCommand : IRequest<Result>
 {
     public required string Email { get; init; }
     public required string Password { get; init; }

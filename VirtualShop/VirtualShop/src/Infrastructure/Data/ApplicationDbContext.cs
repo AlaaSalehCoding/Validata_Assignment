@@ -10,7 +10,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
       
-    public DbSet<TEntity> GetSet<TEntity, TId>() where TEntity : BaseEntity<TId>
+    public DbSet<TEntity> GetSet<TEntity>() where TEntity : BaseEntity
     {
         return this.Set<TEntity>();
     }

@@ -10,7 +10,7 @@ public interface IBaseAuditableEntity
 
     public string? LastModifiedBy { get; set; }
 }
-public abstract class BaseAuditableEntity<TId> : BaseEntity<TId>, IBaseAuditableEntity
+public abstract class BaseAuditableEntity<TId> : BaseEntity<TId>, IBaseAuditableEntity 
 {
     public BaseAuditableEntity(TId id):base(id) { }
 

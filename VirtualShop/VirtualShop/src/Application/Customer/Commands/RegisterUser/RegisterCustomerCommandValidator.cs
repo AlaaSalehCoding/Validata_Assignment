@@ -1,11 +1,11 @@
 ﻿using VirtualShop.Application.Common.Interfaces;
 
-namespace VirtualShop.Application.ShopUser.Commands.RegisterUser;
+namespace VirtualShop.Application.Customer.Commands.RegisterUser;
 
-public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+public class RegisterCustomerCommandValidator : AbstractValidator<RegisterCustomerCommand>
 {
     private readonly IIdentityService _identityService;
-    public RegisterUserCommandValidator(IIdentityService identityService)
+    public RegisterCustomerCommandValidator(IIdentityService identityService)
     {
         _identityService = identityService;
         RuleFor(v => v.Password)

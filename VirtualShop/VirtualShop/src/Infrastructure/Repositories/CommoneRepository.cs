@@ -8,13 +8,13 @@ using VirtualShop.Application.Common.Repository;
 using VirtualShop.Domain.Common;
 
 namespace VirtualShop.Infrastructure.Repositories;
-public class CommoneRepository<TEntity, TId> : ICommoneRepository<TEntity, TId> where TEntity : BaseEntity<TId>
+public class CommoneRepository<TEntity > : ICommonRepository<TEntity > where TEntity : BaseEntity 
 {
     private readonly IApplicationDbContext _dbContext;
     private DbSet<TEntity>? _dbSet = null;
     protected DbSet<TEntity> DbSet
     {
-        get => _dbSet ??= _dbContext.GetSet<TEntity, TId>();
+        get => _dbSet ??= _dbContext.GetSet<TEntity>();
     }
     public CommoneRepository(IApplicationDbContext dbContext)
     {
@@ -47,9 +47,9 @@ public class CommoneRepository<TEntity, TId> : ICommoneRepository<TEntity, TId> 
         return DbSet.Where(expression);
     }
 
-    public virtual TEntity? GetById(object id)
+    public virtual async Task<TEntity?> GetById(object id)
     {
-        return DbSet.Find(id);
+        return await DbSet.FindAsync(id);
     }
     public virtual IQueryable<TEntity> Get(
             Expression<Func<TEntity, bool>>? filter = null,
@@ -74,5 +74,10 @@ public class CommoneRepository<TEntity, TId> : ICommoneRepository<TEntity, TId> 
             return orderBy(query);
         }
         return query;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _dbContext.SaveChangesAsync(default);
     }
 }

@@ -49,7 +49,7 @@ public static class DependencyInjection
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();
 
-        services.AddScoped(typeof(ICommoneRepository<,>), typeof(CommoneRepository<,>));
+        services.AddScoped(typeof(ICommonRepository<>), typeof(CommoneRepository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddAuthorization(options =>

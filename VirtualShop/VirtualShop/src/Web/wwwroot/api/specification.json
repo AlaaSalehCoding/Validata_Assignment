@@ -6,10 +6,10 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/ShopeUser/Register": {
+    "/api/Customer/Register": {
       "post": {
         "tags": [
-          "ShopeUser"
+          "Customer"
         ],
         "operationId": "RegisterUser",
         "requestBody": {
@@ -31,10 +31,10 @@
         }
       }
     },
-    "/api/ShopeUser/login": {
+    "/api/Customer/login": {
       "post": {
         "tags": [
-          "ShopeUser"
+          "Customer"
         ],
         "operationId": "LoginUser",
         "requestBody": {
@@ -56,10 +56,10 @@
         }
       }
     },
-    "/api/ShopeUser/{id}": {
+    "/api/Customer/{id}": {
       "put": {
         "tags": [
-          "ShopeUser"
+          "Customer"
         ],
         "operationId": "UpdateUser",
         "parameters": [
@@ -95,10 +95,10 @@
         ]
       }
     },
-    "/api/ShopeUser/Deactivate/{id}": {
+    "/api/Customer/Deactivate/{id}": {
       "delete": {
         "tags": [
-          "ShopeUser"
+          "Customer"
         ],
         "operationId": "DeactivateUser",
         "parameters": [
@@ -124,10 +124,10 @@
         ]
       }
     },
-    "/api/ShopeUser/Delete/{id}": {
+    "/api/Customer/Delete/{id}": {
       "delete": {
         "tags": [
-          "ShopeUser"
+          "Customer"
         ],
         "operationId": "DeleteUser",
         "parameters": [

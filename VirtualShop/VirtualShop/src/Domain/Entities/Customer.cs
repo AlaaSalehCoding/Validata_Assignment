@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 namespace VirtualShop.Domain.Entities;
 
 public class Customer : BaseAuditableEntity<long>, ISoftDelete
+
 {
     public Customer(long id) : base(id) { }
     public string UserId { get; set; } = string.Empty;

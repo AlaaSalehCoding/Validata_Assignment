@@ -5,25 +5,25 @@ using VirtualShop.Application.Common.Repository;
 using VirtualShop.Domain.Constants;
 using VirtualShop.Domain.Entities;
 
-namespace VirtualShop.Application.ShopUser.Commands.RegisterUser;
+namespace VirtualShop.Application.Customer.Commands.RegisterUser;
 
-public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result>
+public class RegisterCustomerCommandHandler : IRequestHandler<RegisterCustomerCommand, Result>
 {
     private readonly IIdentityService _identityService;
-    private readonly ICommoneRepository<Customer, long> _customerRepo;
+    private readonly ICommonRepository<Domain.Entities.Customer> _customerRepo;
 
-    public RegisterUserCommandHandler(IIdentityService identityService, ICommoneRepository<Customer,long> customerRepo)
+    public RegisterCustomerCommandHandler(IIdentityService identityService, ICommonRepository<Domain.Entities.Customer > customerRepo)
     {
         _identityService = identityService;
         _customerRepo = customerRepo;
     }
 
-    public async Task<Result> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(RegisterCustomerCommand request, CancellationToken cancellationToken)
     {
         (var result, var id) = await _identityService.CreateUserAsync(request.Email, request.Password, request.Username);
         if (result.Succeeded)
         {
-            await _customerRepo.AddAsync(new Customer(0)            
+            await _customerRepo.AddAsync(new Domain.Entities.Customer(0)            
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
