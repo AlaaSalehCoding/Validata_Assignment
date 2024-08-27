@@ -4,9 +4,8 @@ using System.Security.Cryptography;
 namespace VirtualShop.Domain.Entities;
 
 public class Customer : BaseDeletableAuditableEntity<long>
-
 {
-    public Customer(long id) : base(id) { }
+    public Customer(long id = 0) : base(id) { }
     public string UserId { get; set; } = string.Empty;
     [Required]
     [StringLength(50)]
@@ -22,6 +21,6 @@ public class Customer : BaseDeletableAuditableEntity<long>
 
     [Required]
     [StringLength(5)]
-    public string PostalCode { get; set; } = string.Empty; 
+    public string PostalCode { get; set; } = string.Empty;
     public ICollection<Order> Orders { get; set; } = new List<Order>();
 }

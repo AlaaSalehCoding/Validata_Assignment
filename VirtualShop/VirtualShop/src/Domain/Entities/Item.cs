@@ -4,7 +4,7 @@ namespace VirtualShop.Domain.Entities;
 
 public class Item : BaseDeletableAuditableEntity<long>
 {
-    public Item(long id) : base(id) { }
+    public Item(long id = 0) : base(id) { }
     public int Quantity { get; set; }
     public decimal Price { get; set; }
     public long ProductId { get; set; }
@@ -13,6 +13,6 @@ public class Item : BaseDeletableAuditableEntity<long>
     [ForeignKey(nameof(ProductId))]
 
     public long OrderId { get; set; }
-    [ForeignKey(nameof(OrderId))] 
-    public Order? Order { get; set; } 
+    [ForeignKey(nameof(OrderId))]
+    public Order? Order { get; set; }
 }

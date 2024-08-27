@@ -6,7 +6,7 @@ namespace VirtualShop.Domain.Common;
  
 public abstract class BaseEntity
 {
-    public long Id { get; set; } = 0;
+    public virtual long Id { get; set; }
 
     [NotMapped]
     public abstract IReadOnlyCollection<BaseEvent> DomainEvents { get; } 
