@@ -13,7 +13,7 @@ using VirtualShop.Infrastructure.Repositories;
 using VirtualShop.Infrastructure.Uow;
 
 namespace Microsoft.Extensions.DependencyInjection;
-public static class DependencyInjection
+public static partial class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
@@ -21,6 +21,7 @@ public static class DependencyInjection
 
         Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
 
+        services.AddScoped<ISaveChangesInterceptor, SoftDeleteInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
@@ -49,7 +50,8 @@ public static class DependencyInjection
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();
 
-        services.AddScoped(typeof(ICommonRepository<>), typeof(CommoneRepository<>));
+        services.AddRepositoryServices(configuration);
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddAuthorization(options =>

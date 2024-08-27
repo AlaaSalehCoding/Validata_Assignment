@@ -42,8 +42,7 @@ public class DeleteCustomerCommandHandler : IRequestHandler<DeleteCustomerComman
         if (customer is not null)
         {
             result = await _identityService.DeleteUserAsync(request.UserId);
-            await _customerRepo.DeleteAsync(customer);
-            await _customerRepo.SaveChangesAsync();
+            await _customerRepo.DeleteAsync(customer); 
         }
         return result;
     }

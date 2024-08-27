@@ -2,7 +2,7 @@
 
 namespace VirtualShop.Domain.Entities;
 
-public class Item : BaseAuditableEntity<long>, ISoftDelete
+public class Item : BaseAuditableEntity<long>, ISoftDeletable
 {
     public Item(long id) : base(id) { }
     public int Quantity { get; set; }
@@ -17,4 +17,6 @@ public class Item : BaseAuditableEntity<long>, ISoftDelete
     public Order? Order { get; set; }
 
     public bool IsDeleted { get; set; } = false;
+    public DateTime? DeletedOnDate { get; set; }
+    public string? DeletedBy { get; set; }
 }

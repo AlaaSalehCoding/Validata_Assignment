@@ -1,4 +1,5 @@
-﻿namespace VirtualShop.Application.Common.Models;
+﻿
+namespace VirtualShop.Application.Common.Models;
 
 public class Result
 {
@@ -9,6 +10,7 @@ public class Result
     }
 
     public bool Succeeded { get; init; }
+    public object? SuccessStatus { get; set; }
 
     public string[] Errors { get; init; }
 
@@ -20,5 +22,12 @@ public class Result
     public static Result Failure(IEnumerable<string> errors)
     {
         return new Result(false, errors);
+    }
+
+    internal static Result Success(object status)
+    {
+        var result = new Result(true, Array.Empty<string>());
+        result.SuccessStatus = status;
+        return result;
     }
 }

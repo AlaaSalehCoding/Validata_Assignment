@@ -32,13 +32,7 @@ public class CommoneRepository<TEntity > : ICommonRepository<TEntity > where TEn
     }
     public virtual async Task DeleteAsync(TEntity entity)
     {
-        if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
-        {
-            ((ISoftDelete)entity).IsDeleted = true;
-            DbSet.Update(entity);
-        }
-        else
-            DbSet.Remove(entity);
+        DbSet.Remove(entity);
         await _dbContext.SaveChangesAsync(default);
     }
 

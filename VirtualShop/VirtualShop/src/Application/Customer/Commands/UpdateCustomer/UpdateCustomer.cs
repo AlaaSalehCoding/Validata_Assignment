@@ -4,6 +4,7 @@ using VirtualShop.Application.Common.Repository;
 
 namespace VirtualShop.Application.Customer.Commands.UpdateUser;
 
+//Todo add authorization
 public record UpdateCustomerCommand : IRequest<Result>
 {
     public long Id { get; set; }
@@ -17,7 +18,7 @@ public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCo
 {
     public UpdateCustomerCommandValidator()
     {
-        //Attribute validator 
+        //TODO Attribute validator 
         //Authorization
     }
 }
