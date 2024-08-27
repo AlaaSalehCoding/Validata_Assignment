@@ -1,7 +1,7 @@
 ﻿using VirtualShop.Application.Product.Commands.CreateProduct;
 using VirtualShop.Application.Product.Commands.DeleteProduct;
 using VirtualShop.Application.Product.Commands.UpdateProduct;
-using VirtualShop.Application.Product.Queries.GetProducts;
+using VirtualShop.Application.Product.Queries.FilterProducts;
 namespace VirtualShop.Web.Endpoints;
 
 public class Product : EndpointGroupBase
@@ -11,6 +11,7 @@ public class Product : EndpointGroupBase
         app.MapGroup(this)
             .RequireAuthorization()
             .MapPost(Create)
+            .MapPost(Filter,"Filter")
             .MapPut(Update, "{id}")
             .MapDelete(Delete, "{id}");
     }
@@ -26,6 +27,12 @@ public class Product : EndpointGroupBase
             return Results.BadRequest(result);
         }
     }
+    public async Task<IResult> Filter(ISender sender, FilterProductsQuery query)
+    {
+        var result =await sender.Send(query);
+        return Results.Ok(result);
+    }
+    
 
     public async Task<IResult> Update(ISender sender, string id, UpdateProductCommand command)
     {
@@ -54,7 +61,7 @@ public class Product : EndpointGroupBase
         }
     }
 
-    public Task<ProductsVm> GetTodoLists(ISender sender, GetProductsQuery query)
+    public Task<FilterProductsResponce> GetTodoLists(ISender sender, FilterProductsQuery query)
     {
         return sender.Send(query);
     }

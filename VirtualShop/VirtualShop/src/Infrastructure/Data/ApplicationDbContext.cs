@@ -1,7 +1,10 @@
-﻿using System.Reflection;
+﻿using System.Linq.Expressions;
+using System.Reflection;
 using System.Reflection.Emit;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using VirtualShop.Application.Common.Interfaces;
 using VirtualShop.Domain.Common;
 using VirtualShop.Infrastructure.Identity;
@@ -19,7 +22,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        //builder.Ignore<BaseDeletableEntity>();
-        //builder.Entity<BaseDeletableEntity>().HasQueryFilter(r => !r.IsDeleted);
+        builder.ApplyQueryFilter<ISoftDeletable>(e => !e.IsDeleted);
     }
 }

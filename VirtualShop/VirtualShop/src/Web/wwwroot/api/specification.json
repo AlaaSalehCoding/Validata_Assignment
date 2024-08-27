@@ -183,6 +183,36 @@
         ]
       }
     },
+    "/api/Product/Filter": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "operationId": "Filter",
+        "requestBody": {
+          "x-name": "query",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilterProductsQuery"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Product/{id}": {
       "put": {
         "tags": [
@@ -304,6 +334,138 @@
           "price": {
             "type": "number",
             "format": "decimal"
+          }
+        }
+      },
+      "FilterProductsQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "search": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SearchFilter"
+              }
+            ]
+          },
+          "sort": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SortFilter"
+              }
+            ]
+          },
+          "pagination": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PaginationFilter"
+              }
+            ]
+          }
+        }
+      },
+      "SearchFilter": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fieldName": {
+            "type": "string"
+          },
+          "fieldValue": {
+            "type": "string"
+          },
+          "operator": {
+            "$ref": "#/components/schemas/Operator"
+          },
+          "logicOperator": {
+            "$ref": "#/components/schemas/LogicOperator"
+          },
+          "subFilters": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/SearchFilter"
+            }
+          }
+        }
+      },
+      "Operator": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Equals",
+          "Contains",
+          "GreaterThan",
+          "LessThan",
+          "GreaterThanOrEqual",
+          "LessThanOrEqual"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "LogicOperator": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "And",
+          "Or"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "SortFilter": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fieldName": {
+            "type": "string"
+          },
+          "sortDirection": {
+            "$ref": "#/components/schemas/SortDirection"
+          },
+          "subSort": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/SortFilter"
+            }
+          }
+        }
+      },
+      "SortDirection": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "asc",
+          "desc"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "PaginationFilter": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

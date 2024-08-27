@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using VirtualShop.Application.Common.Interfaces;
 using VirtualShop.Application.Common.Models;
-using VirtualShop.Application.Product.Queries.GetProducts;
+using VirtualShop.Application.Product.Queries.FilterProducts;
 
 namespace VirtualShop.Application.Product.Commands.CreateProduct;
 

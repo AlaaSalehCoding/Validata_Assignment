@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VirtualShop.Application.Product.Queries.GetProducts;
+namespace VirtualShop.Application.Product.Queries.FilterProducts;
 
 public class ProductDto
 {
@@ -8,7 +8,7 @@ public class ProductDto
     { 
     }
 
-    public int Id { get; init; } 
+    public long Id { get; init; } 
     public string Name { get; set; } = string.Empty; 
     public decimal Price { get; set; }
 
