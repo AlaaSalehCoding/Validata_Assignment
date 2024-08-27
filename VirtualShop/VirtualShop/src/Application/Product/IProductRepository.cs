@@ -10,5 +10,4 @@ namespace VirtualShop.Application.Product;
 
 public interface IProductRepository : ICommonRepository<Domain.Entities.Product>
 {
-    Task DeleteAsync(long id);
 }

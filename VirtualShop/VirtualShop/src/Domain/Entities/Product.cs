@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace VirtualShop.Domain.Entities;
-public class Product : BaseAuditableEntity<long>, ISoftDeletable
+public class Product : BaseDeletableAuditableEntity<long>
 {
     public Product(long id) : base(id) { }
 
@@ -15,8 +15,5 @@ public class Product : BaseAuditableEntity<long>, ISoftDeletable
     public string Name { get; set; } =string.Empty;
     
     [Required]
-    public decimal Price { get; set; } 
-    public bool IsDeleted { get; set; } = false;
-    public DateTime? DeletedOnDate { get; set; }
-    public string? DeletedBy { get; set; }
+    public decimal Price { get; set; }  
 }

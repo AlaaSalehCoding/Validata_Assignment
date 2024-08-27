@@ -26,14 +26,14 @@ public sealed class SoftDeleteInterceptor : SaveChangesInterceptor
                 eventData, result, cancellationToken);
         }
 
-        IEnumerable<EntityEntry<ISoftDeletable>> entries =
+        IEnumerable<EntityEntry<BaseDeletableEntity>> entries =
             eventData
                 .Context
                 .ChangeTracker
-                .Entries<ISoftDeletable>()
+                .Entries<BaseDeletableEntity>()
                 .Where(e => e.State == EntityState.Deleted);
 
-        foreach (EntityEntry<ISoftDeletable> softDeletable in entries)
+        foreach (EntityEntry<BaseDeletableEntity> softDeletable in entries)
         {
             softDeletable.State = EntityState.Modified;
             softDeletable.Entity.IsDeleted = true;

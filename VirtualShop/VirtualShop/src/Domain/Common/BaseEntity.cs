@@ -6,7 +6,9 @@ namespace VirtualShop.Domain.Common;
  
 public abstract class BaseEntity
 {
-    public object Id { get; set; } = 0;
+    public long Id { get; set; } = 0;
+
+    [NotMapped]
     public abstract IReadOnlyCollection<BaseEvent> DomainEvents { get; } 
     public abstract void AddDomainEvent(BaseEvent domainEvent);
     public abstract void RemoveDomainEvent(BaseEvent domainEvent);

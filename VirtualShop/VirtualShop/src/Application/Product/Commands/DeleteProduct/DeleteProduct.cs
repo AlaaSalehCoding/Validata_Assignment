@@ -18,15 +18,21 @@ public class DeleteProductCommandValidator : AbstractValidator<DeleteProductComm
 
 public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Result>
 {
-    public IProductRepository ProductRepository { get; }
+    private readonly IProductRepository _productRepository;
+
     public DeleteProductCommandHandler(IProductRepository productRepository)
     {
-        ProductRepository = productRepository;
+        _productRepository = productRepository;
     }
 
     public async Task<Result> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        await ProductRepository.DeleteAsync(request.Id);
+        var product = await _productRepository.GetById(request.Id);
+        if (product is null)
+        {
+            return Result.Failure(["no such product!"]);
+        }
+        await _productRepository.DeleteAsync(product);
 
         return Result.Success();
     }

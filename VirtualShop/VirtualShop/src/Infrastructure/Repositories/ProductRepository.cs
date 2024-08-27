@@ -9,4 +9,5 @@ public class ProductRepository : CommoneRepository<Product>, IProductRepository
     public ProductRepository(IApplicationDbContext dbContext) : base(dbContext)
     {
     }
+     
 }

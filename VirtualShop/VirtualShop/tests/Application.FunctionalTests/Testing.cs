@@ -70,7 +70,7 @@ public partial class Testing
 
         if (roles.Any(r => r.Equals(Roles.Customer)))
         {
-            var customerRepository = scope.ServiceProvider.GetRequiredService<ICommonRepository<Domain.Entities.Customer,long>>();
+            var customerRepository = scope.ServiceProvider.GetRequiredService<ICommonRepository<Domain.Entities.Customer>>();
             await customerRepository.AddAsync(new Domain.Entities.Customer(0)
             {
                 FirstName = userName,

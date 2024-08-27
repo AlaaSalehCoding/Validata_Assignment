@@ -20,6 +20,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        builder.Entity<ISoftDeletable>().HasQueryFilter(r => !r.IsDeleted);
+        builder.Entity<BaseDeletableEntity>().HasQueryFilter(r => !r.IsDeleted);
     }
 }

@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace VirtualShop.Domain.Entities;
 
-public class Customer : BaseAuditableEntity<long>, ISoftDeletable
+public class Customer : BaseDeletableAuditableEntity<long>
 
 {
     public Customer(long id) : base(id) { }
@@ -22,9 +22,6 @@ public class Customer : BaseAuditableEntity<long>, ISoftDeletable
 
     [Required]
     [StringLength(5)]
-    public string PostalCode { get; set; } = string.Empty;
-    public bool IsDeleted { get; set; } = false;
-    public DateTime? DeletedOnDate { get; set; }
-    public string? DeletedBy { get; set; }
+    public string PostalCode { get; set; } = string.Empty; 
     public ICollection<Order> Orders { get; set; } = new List<Order>();
 }
