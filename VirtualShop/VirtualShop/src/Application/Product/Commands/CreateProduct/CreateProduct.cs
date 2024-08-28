@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using VirtualShop.Application.Common.Interfaces;
-using VirtualShop.Application.Common.Models;
-using VirtualShop.Application.Product.Queries.FilterProducts;
+﻿using VirtualShop.Application.Common.Models;
+using VirtualShop.Application.Common.Security; 
+using VirtualShop.Domain.Constants;
 
 namespace VirtualShop.Application.Product.Commands.CreateProduct;
 
-//Add validation & authorization
+
+[Authorize(Roles = Roles.Administrator)]
+[Authorize(Policy = Policies.CanManageProducts)]
 public record CreateProductCommand : IRequest<Result>
 { 
     public string Name { get; set; } = string.Empty; 
@@ -23,6 +24,13 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
 {
     public CreateProductCommandValidator()
     {
+        RuleFor(v => v.Name)
+            .MinimumLength(1)
+            .MaximumLength(250)
+            .NotEmpty();
+        RuleFor(v => v.Price)
+            .GreaterThan(0)
+            .NotEmpty();
     }
 }
 

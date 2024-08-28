@@ -12,7 +12,7 @@ public class CommoneRepository<TEntity > : ICommonRepository<TEntity > where TEn
 {
     private readonly IApplicationDbContext _dbContext;
     private DbSet<TEntity>? _dbSet = null;
-    protected DbSet<TEntity> DbSet
+    public virtual DbSet<TEntity> DbSet
     {
         get => _dbSet ??= _dbContext.GetSet<TEntity>();
     }
@@ -41,7 +41,7 @@ public class CommoneRepository<TEntity > : ICommonRepository<TEntity > where TEn
         return DbSet.Where(expression);
     }
 
-    public virtual async Task<TEntity?> GetById(object id)
+    public virtual async Task<TEntity?> GetByIdAsync(object id)
     {
         return await DbSet.FindAsync(id);
     }

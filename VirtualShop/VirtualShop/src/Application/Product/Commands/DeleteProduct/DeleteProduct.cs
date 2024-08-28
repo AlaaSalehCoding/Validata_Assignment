@@ -1,9 +1,12 @@
-﻿using VirtualShop.Application.Common.Interfaces;
-using VirtualShop.Application.Common.Models;
+﻿using VirtualShop.Application.Common.Models;
+using VirtualShop.Application.Common.Security;
+using VirtualShop.Domain.Constants;
 
 namespace VirtualShop.Application.Product.Commands.DeleteProduct;
 
-//Add validation & authorization
+
+[Authorize(Roles = Roles.Administrator)]
+[Authorize(Policy = Policies.CanManageProducts)]
 public record DeleteProductCommand : IRequest<Result>
 {
     public long Id { get; set; }
@@ -27,7 +30,7 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
 
     public async Task<Result> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetById(request.Id);
+        var product = await _productRepository.GetByIdAsync(request.Id);
         if (product is null)
         {
             return Result.Failure(["no such product!"]);

@@ -2,8 +2,7 @@
 using VirtualShop.Application.Common.Interfaces;
 
 namespace VirtualShop.Application.Product.Queries.FilterProducts;
-
-//add validation and authroization
+ 
 public record FilterProductsQuery : IRequest<FilterProductsResponce>, IFilter
 {
     public SearchFilter? Search { get; set; }
@@ -17,6 +16,7 @@ public class FilterProductsQueryValidator : AbstractValidator<FilterProductsQuer
 {
     public FilterProductsQueryValidator()
     {
+        //Products can be public
     }
 }
 
@@ -34,19 +34,18 @@ public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, F
     public async Task<FilterProductsResponce> Handle(FilterProductsQuery request, CancellationToken cancellationToken)
     {
         var result = new FilterProductsResponce();
-        var dbResult = _productRepository.Get();
-        if (dbResult is not null)
+        var query = _productRepository.DbSet.AsQueryable();
+        if (query is not null)
         {
-            var query = dbResult.ProjectTo<ProductDto>(_mapper.ConfigurationProvider);
 
-            query = query.ApplySearch(request.Search);
-            query = query.ApplySorting(request.Sort);
+            query = query.ApplySearch(request.Search)
+                         .ApplySorting(request.Sort);
 
-            result.Total = await query.CountAsync();
+            result.Total = await query.CountAsync(); 
 
-            query = query.ApplyPagination(request.Pagination);
-
-            result.Items = await query.ToListAsync();
+            result.Items = await query.ApplyPagination(request.Pagination)
+                                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+                                .ToListAsync();
         }
         return result;
     }

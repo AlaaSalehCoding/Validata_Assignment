@@ -1,10 +1,8 @@
-﻿using VirtualShop.Application.Common.Interfaces;
+﻿using FluentValidation;
 using VirtualShop.Application.Common.Models;
 using VirtualShop.Application.Common.Repository;
 
 namespace VirtualShop.Application.Customer.Commands.UpdateUser;
-
-//Todo add authorization
 public record UpdateCustomerCommand : IRequest<Result>
 {
     public long Id { get; set; }
@@ -14,17 +12,8 @@ public record UpdateCustomerCommand : IRequest<Result>
     public string PostalCode { get; set; } = null!;
 }
 
-public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCommand>
-{
-    public UpdateCustomerCommandValidator()
-    {
-        //TODO Attribute validator 
-        //Authorization
-    }
-}
-
 public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Result>
-{ 
+{
     private readonly ICommonRepository<Domain.Entities.Customer> _customerRepo;
     public UpdateCustomerCommandHandler(ICommonRepository<Domain.Entities.Customer> customerRepo)
     {
@@ -33,8 +22,9 @@ public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerComman
 
     public async Task<Result> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
-        var customer = await _customerRepo.GetById(id: request.Id);
-        if (customer == null) {
+        var customer = await _customerRepo.GetByIdAsync(id: request.Id);
+        if (customer == null)
+        {
             return Result.Failure(["No such customer"]);
         }
         customer.FirstName = request.FirstName;

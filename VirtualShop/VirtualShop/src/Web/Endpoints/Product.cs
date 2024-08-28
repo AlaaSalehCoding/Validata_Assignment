@@ -59,10 +59,5 @@ public class Product : EndpointGroupBase
         {
             return Results.BadRequest(resault);
         }
-    }
-
-    public Task<FilterProductsResponce> GetTodoLists(ISender sender, FilterProductsQuery query)
-    {
-        return sender.Send(query);
-    }
+    } 
 }

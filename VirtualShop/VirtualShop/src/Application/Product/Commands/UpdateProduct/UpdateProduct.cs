@@ -1,9 +1,11 @@
-﻿using VirtualShop.Application.Common.Interfaces;
-using VirtualShop.Application.Common.Models;
-using VirtualShop.Application.Product.Commands.CreateProduct;
+﻿using VirtualShop.Application.Common.Models;
+using VirtualShop.Application.Common.Security; 
+using VirtualShop.Domain.Constants;
 
 namespace VirtualShop.Application.Product.Commands.UpdateProduct;
-//Add validation & authorization
+
+[Authorize(Roles = Roles.Administrator)]
+[Authorize(Policy = Policies.CanManageProducts)]
 public record UpdateProductCommand : IRequest<Result>
 {
     public long Id { get; set; }
@@ -22,6 +24,13 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
 {
     public UpdateProductCommandValidator()
     {
+        RuleFor(v => v.Name)
+            .MinimumLength(1)
+            .MaximumLength(250)
+            .NotEmpty();
+        RuleFor(v => v.Price)
+            .GreaterThan(0)
+            .NotEmpty();
     }
 }
 
@@ -38,7 +47,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 
     public async Task<Result> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetById(request.Id);
+        var product = await _productRepository.GetByIdAsync(request.Id);
         if (product is null)
         {
             return Result.Failure(["no such product!"]);

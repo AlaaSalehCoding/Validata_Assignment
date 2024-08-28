@@ -58,6 +58,8 @@ public static partial class DependencyInjection
             options.AddPolicy(Policies.CanDeleteUser, policy => policy.RequireRole(Roles.Administrator)));
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanDeactivateUser, policy => policy.RequireRole(Roles.Administrator)));
+        services.AddAuthorization(options =>
+            options.AddPolicy(Policies.CanManageProducts, policy => policy.RequireRole(Roles.Administrator))); 
 
         return services;
     }
