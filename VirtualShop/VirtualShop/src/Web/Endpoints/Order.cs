@@ -1,12 +1,11 @@
-﻿using VirtualShop.Application.Product.Commands.CreateProduct;
-using VirtualShop.Application.Product.Commands.DeleteProduct;
-using VirtualShop.Application.Product.Commands.UpdateProduct;
-using VirtualShop.Application.Product.Queries.FilterProducts;
-using VirtualShop.Application.Product.Queries.GetProduct;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+﻿using CleanArchitecture.Application.Order.Commands.CreateOrder;
+using VirtualShop.Application.Order.Commands.DeleteOrder;
+using VirtualShop.Application.Order.Commands.UpdateOrder;
+using VirtualShop.Application.Order.Queries.FilterOrders;
+using VirtualShop.Application.Order.Queries.GetOrder;
 namespace VirtualShop.Web.Endpoints;
 
-public class Product : EndpointGroupBase
+public class Order : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
@@ -18,7 +17,7 @@ public class Product : EndpointGroupBase
             .MapGet(Get, "{id}")
             .MapPost(Filter, "Filter");
     }
-    public async Task<IResult> Create(ISender sender, CreateProductCommand command)
+    public async Task<IResult> Create(ISender sender, CreateOrderCommand command)
     {
         var result = await sender.Send(command);
         if (result.Succeeded)
@@ -29,8 +28,8 @@ public class Product : EndpointGroupBase
         {
             return Results.BadRequest(result);
         }
-    } 
-    public async Task<IResult> Update(ISender sender, string id, UpdateProductCommand command)
+    }
+    public async Task<IResult> Update(ISender sender, string id, UpdateOrderCommand command)
     {
         var resault = await sender.Send(command);
         if (resault.Succeeded)
@@ -42,28 +41,27 @@ public class Product : EndpointGroupBase
             return Results.BadRequest(resault);
         }
     }
-
     public async Task<IResult> Delete(ISender sender, long id)
     {
-        var command = new DeleteProductCommand() { Id = id };
-        var resault = await sender.Send(command);
-        if (resault.Succeeded)
+        var command = new DeleteOrderCommand() { Id = id };
+        var result = await sender.Send(command);
+        if (result.Succeeded)
         {
             return Results.NoContent();
         }
         else
         {
-            return Results.BadRequest(resault);
+            return Results.BadRequest(result);
         }
     }
-    public async Task<IResult> Get(ISender sender, string id)
+    public async Task<IResult> Filter(ISender sender, FilterOrdersQuery query)
     {
-        var query = new GetProductQuery();
         var result = await sender.Send(query);
         return Results.Ok(result);
     }
-    public async Task<IResult> Filter(ISender sender, FilterProductsQuery query)
+    public async Task<IResult> Get(ISender sender, string id)
     {
+        var query = new GetOrderQuery();
         var result = await sender.Send(query);
         return Results.Ok(result);
     }

@@ -10,4 +10,5 @@ namespace VirtualShop.Application.Product;
 
 public interface IProductRepository : ICommonRepository<Domain.Entities.Product>
 {
+    //TODO Add product specific code
 }

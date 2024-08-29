@@ -153,12 +153,168 @@
         ]
       }
     },
+    "/api/Order": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Create",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Order/{id}": {
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOrderCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Order/Filter": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Filter",
+        "requestBody": {
+          "x-name": "query",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilterOrdersQuery"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Product": {
       "post": {
         "tags": [
           "Product"
         ],
-        "operationId": "Create",
+        "operationId": "Create2",
         "requestBody": {
           "x-name": "command",
           "content": {
@@ -183,42 +339,12 @@
         ]
       }
     },
-    "/api/Product/Filter": {
-      "post": {
-        "tags": [
-          "Product"
-        ],
-        "operationId": "Filter",
-        "requestBody": {
-          "x-name": "query",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FilterProductsQuery"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
     "/api/Product/{id}": {
       "put": {
         "tags": [
           "Product"
         ],
-        "operationId": "Update",
+        "operationId": "Update2",
         "parameters": [
           {
             "name": "id",
@@ -257,7 +383,7 @@
         "tags": [
           "Product"
         ],
-        "operationId": "Delete",
+        "operationId": "Delete2",
         "parameters": [
           {
             "name": "id",
@@ -270,6 +396,63 @@
             "x-position": 1
           }
         ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "operationId": "Get2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Product/Filter": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "operationId": "Filter2",
+        "requestBody": {
+          "x-name": "query",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilterProductsQuery"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
         "responses": {
           "200": {
             "description": ""
@@ -324,10 +507,39 @@
           }
         }
       },
+      "CreateOrderCommand": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "UpdateOrderCommand": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "FilterOrdersQuery": {
+        "type": "object",
+        "additionalProperties": false
+      },
       "CreateProductCommand": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "decimal"
+          }
+        }
+      },
+      "UpdateProductCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
           "name": {
             "type": "string"
           },
@@ -466,23 +678,6 @@
           "pageSize": {
             "type": "integer",
             "format": "int32"
-          }
-        }
-      },
-      "UpdateProductCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number",
-            "format": "decimal"
           }
         }
       }
