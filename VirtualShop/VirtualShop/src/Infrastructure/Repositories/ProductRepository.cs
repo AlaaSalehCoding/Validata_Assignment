@@ -1,5 +1,5 @@
 ﻿using VirtualShop.Application.Common.Interfaces;
-using VirtualShop.Application.Product;
+using VirtualShop.Application.Products;
 using VirtualShop.Domain.Entities;
 
 namespace VirtualShop.Infrastructure.Repositories;

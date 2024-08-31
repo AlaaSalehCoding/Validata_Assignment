@@ -2,7 +2,7 @@
 using VirtualShop.Application.Common.Security; 
 using VirtualShop.Domain.Constants;
 
-namespace VirtualShop.Application.Product.Commands.UpdateProduct;
+namespace VirtualShop.Application.Products.Commands.UpdateProduct;
 
 [Authorize(Roles = Roles.Administrator)]
 [Authorize(Policy = Policies.CanManageProducts)]

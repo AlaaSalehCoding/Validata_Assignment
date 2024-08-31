@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VirtualShop.Application.Product.Queries;
+namespace VirtualShop.Application.Products.Queries;
 
 public class ProductDto
 {

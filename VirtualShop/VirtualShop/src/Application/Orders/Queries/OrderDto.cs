@@ -1,4 +1,4 @@
-﻿using VirtualShop.Application.Product.Queries.FilterProducts;
+﻿using VirtualShop.Application.Products.Queries.FilterProducts;
 
 namespace VirtualShop.Application.Orders.Queries;
 

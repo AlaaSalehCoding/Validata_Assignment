@@ -2,7 +2,7 @@
 using VirtualShop.Application.Common.Security;
 using VirtualShop.Domain.Constants;
 
-namespace VirtualShop.Application.Product.Commands.DeleteProduct;
+namespace VirtualShop.Application.Products.Commands.DeleteProduct;
 
 
 [Authorize(Roles = Roles.Administrator)]

@@ -1,8 +1,8 @@
-﻿using VirtualShop.Application.Product.Commands.CreateProduct;
-using VirtualShop.Application.Product.Commands.DeleteProduct;
-using VirtualShop.Application.Product.Commands.UpdateProduct;
-using VirtualShop.Application.Product.Queries.FilterProducts;
-using VirtualShop.Application.Product.Queries.GetProduct;
+﻿using VirtualShop.Application.Products.Commands.CreateProduct;
+using VirtualShop.Application.Products.Commands.DeleteProduct;
+using VirtualShop.Application.Products.Commands.UpdateProduct;
+using VirtualShop.Application.Products.Queries.FilterProducts;
+using VirtualShop.Application.Products.Queries.GetProduct;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace VirtualShop.Web.Endpoints;
 
@@ -13,7 +13,7 @@ public class Product : EndpointGroupBase
         app.MapGroup(this)
             .RequireAuthorization()
             .MapPost(CreateProduct)
-            .MapPut(UpdateProduct, "{id}")
+            //.MapPut(UpdateProduct, "{id}") //No point in updating product
             .MapDelete(DeleteProduct, "{id}")
             .MapGet(GetProduct, "{id}")
             .MapPost(FilterProduct, "Filter");

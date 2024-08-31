@@ -3,7 +3,7 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VirtualShop.Application.Common.Repository;
-using VirtualShop.Application.Product;
+using VirtualShop.Application.Products;
 using VirtualShop.Infrastructure.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection;

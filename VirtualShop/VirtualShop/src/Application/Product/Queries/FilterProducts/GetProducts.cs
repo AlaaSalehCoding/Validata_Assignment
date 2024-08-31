@@ -1,7 +1,7 @@
 ﻿using VirtualShop.Application.Common.Filtration;
 using VirtualShop.Application.Common.Interfaces;
 
-namespace VirtualShop.Application.Product.Queries.FilterProducts;
+namespace VirtualShop.Application.Products.Queries.FilterProducts;
 
 public record FilterProductsQuery : IRequest<FilterProductsResponce>    
 {

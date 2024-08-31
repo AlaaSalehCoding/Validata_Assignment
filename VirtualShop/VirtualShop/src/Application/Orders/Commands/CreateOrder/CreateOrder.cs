@@ -1,7 +1,7 @@
 ﻿using VirtualShop.Application.Common.Interfaces;
 using VirtualShop.Application.Common.Models;
 using VirtualShop.Application.Common.Repository;
-using VirtualShop.Application.Product.Commands.CreateProduct;
+using VirtualShop.Application.Products.Commands.CreateProduct;
 using VirtualShop.Domain.Entities;
 
 namespace CleanArchitecture.Application.Orders.Commands.CreateOrder;

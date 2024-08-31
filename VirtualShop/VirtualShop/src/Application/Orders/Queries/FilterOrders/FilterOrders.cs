@@ -2,8 +2,8 @@
 using VirtualShop.Application.Common.Interfaces;
 using VirtualShop.Application.Common.Models;
 using VirtualShop.Application.Common.Repository;
-using VirtualShop.Application.Product;
-using VirtualShop.Application.Product.Queries.FilterProducts;
+using VirtualShop.Application.Products;
+using VirtualShop.Application.Products.Queries.FilterProducts;
 using VirtualShop.Domain.Entities;
 
 namespace VirtualShop.Application.Orders.Queries.FilterOrders;

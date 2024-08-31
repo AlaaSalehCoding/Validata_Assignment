@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using VirtualShop.Application.Common.Repository;
 
 
-namespace VirtualShop.Application.Product;
+namespace VirtualShop.Application.Products;
 
 public interface IProductRepository : ICommonRepository<Domain.Entities.Product>
 {

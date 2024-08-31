@@ -2,7 +2,7 @@
 using VirtualShop.Application.Common.Security; 
 using VirtualShop.Domain.Constants;
 
-namespace VirtualShop.Application.Product.Commands.CreateProduct;
+namespace VirtualShop.Application.Products.Commands.CreateProduct;
 
 
 [Authorize(Roles = Roles.Administrator)]

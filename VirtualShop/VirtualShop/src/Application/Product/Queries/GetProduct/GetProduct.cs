@@ -1,7 +1,7 @@
 ﻿using VirtualShop.Application.Common.Interfaces;
 using VirtualShop.Application.Common.Models;
 
-namespace VirtualShop.Application.Product.Queries.GetProduct;
+namespace VirtualShop.Application.Products.Queries.GetProduct;
 
 public record GetProductQuery : IRequest<Result>
 {

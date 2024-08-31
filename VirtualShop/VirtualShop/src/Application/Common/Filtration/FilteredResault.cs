@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VirtualShop.Application.Product.Queries.FilterProducts;
+using VirtualShop.Application.Products.Queries.FilterProducts;
 
 namespace VirtualShop.Application.Common.Filtration;
 public abstract class FilteredResault<TItem>
