@@ -5,18 +5,6 @@ using VirtualShop.Domain.Entities;
 
 namespace VirtualShop.Application.Orders.Queries.GetOrder;
 
-public record GetOrderQuery : IRequest<Result>
-{
-    public long Id { get; set; }
-}
-
-public class GetOrderQueryValidator : AbstractValidator<GetOrderQuery>
-{
-    public GetOrderQueryValidator()
-    {
-    }
-}
-
 public class GetOrderQueryHandler : IRequestHandler<GetOrderQuery, Result>
 {
     private readonly ICommonRepository<Order> _orderRepo;

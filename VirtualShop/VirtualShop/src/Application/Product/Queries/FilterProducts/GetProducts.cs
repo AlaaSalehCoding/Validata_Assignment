@@ -3,23 +3,6 @@ using VirtualShop.Application.Common.Interfaces;
 
 namespace VirtualShop.Application.Products.Queries.FilterProducts;
 
-public record FilterProductsQuery : IRequest<FilterProductsResponce>    
-{
-    public SearchFilter? Search { get; set; }
-    public SortFilter? Sort { get; set; }
-    public PaginationFilter? Pagination { get; set; }
-}
-public class FilterProductsResponce : FilteredResault<ProductDto>
-{
-}
-public class FilterProductsQueryValidator : AbstractValidator<FilterProductsQuery>
-{
-    public FilterProductsQueryValidator()
-    {
-        //Products can be public
-    }
-}
-
 public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, FilterProductsResponce>
 {
     private readonly IProductRepository _productRepository;

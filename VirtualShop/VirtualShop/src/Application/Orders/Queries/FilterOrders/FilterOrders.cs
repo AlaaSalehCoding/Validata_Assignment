@@ -7,23 +7,6 @@ using VirtualShop.Application.Products.Queries.FilterProducts;
 using VirtualShop.Domain.Entities;
 
 namespace VirtualShop.Application.Orders.Queries.FilterOrders;
-
-public record FilterOrdersQuery : IRequest<FilterOrdersResponce>, IFilter
-{
-    public SearchFilter? Search { get; set; }
-    public SortFilter? Sort { get; set; }
-    public PaginationFilter? Pagination { get; set; }
-} 
-public class FilterOrdersQueryValidator : AbstractValidator<FilterOrdersQuery>
-{
-    public FilterOrdersQueryValidator()
-    {
-    }
-}
-
-public class FilterOrdersResponce : FilteredResault<OrderDto>
-{
-}
 public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, FilterOrdersResponce>
 {
     private readonly ICommonRepository<Order> _orderRepo;

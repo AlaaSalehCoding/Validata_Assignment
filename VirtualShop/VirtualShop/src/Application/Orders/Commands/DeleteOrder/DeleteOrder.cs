@@ -5,18 +5,6 @@ using VirtualShop.Domain.Entities;
 
 namespace VirtualShop.Application.Orders.Commands.DeleteOrder;
 
-public record DeleteOrderCommand : IRequest<Result>
-{
-    public long Id { get; set; }
-}
-
-public class DeleteOrderCommandValidator : AbstractValidator<DeleteOrderCommand>
-{
-    public DeleteOrderCommandValidator()
-    {
-    }
-}
-
 public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, Result>
 {
     private readonly ICommonRepository<Order> _orderRrepo;

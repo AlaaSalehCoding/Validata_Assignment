@@ -6,28 +6,6 @@ using VirtualShop.Domain.Entities;
 
 namespace VirtualShop.Application.Items.Commands.AddItemToOrder;
 
-public record AddItemToOrderCommand : IRequest<Result>
-{
-    public int Quantity { get; set; }
-    public long OrderId { get; set; }
-    public long ProductId { get; set; }
-    private class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<AddItemToOrderCommand, Domain.Entities.Item>();
-        }
-    }
-}
-
-public class AddItemToOrderCommandValidator : AbstractValidator<AddItemToOrderCommand>
-{
-    public AddItemToOrderCommandValidator()
-    {
-        RuleFor(i => i.Quantity).GreaterThanOrEqualTo(1);
-    }
-}
-
 public class AddItemToOrderCommandHandler : IRequestHandler<AddItemToOrderCommand, Result>
 {
     private readonly ICommonRepository<Item> _itemRepo;

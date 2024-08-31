@@ -6,25 +6,6 @@ using VirtualShop.Domain.Entities;
 
 namespace CleanArchitecture.Application.Orders.Commands.CreateOrder;
 
-public record CreateOrderCommand : IRequest<Result>
-{
-    public DateTime OrderDate { get; set; }
-    private class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<CreateOrderCommand, Order>();
-        }
-    }
-}
-
-public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
-{
-    public CreateOrderCommandValidator()
-    {
-    }
-}
-
 public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Result>
 {
     private readonly ICommonRepository<Order> _orderRrepo;

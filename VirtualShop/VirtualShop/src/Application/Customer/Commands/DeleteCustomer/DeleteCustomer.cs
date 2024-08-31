@@ -1,24 +1,8 @@
 ﻿using VirtualShop.Application.Common.Interfaces;
 using VirtualShop.Application.Common.Models;
 using VirtualShop.Application.Common.Repository;
-using VirtualShop.Application.Common.Security; 
-using VirtualShop.Domain.Constants;
 
 namespace VirtualShop.Application.Customer.Commands.DeleteUser;
-
-[Authorize(Roles = Roles.Administrator)]
-[Authorize(Policy = Policies.CanDeleteUser)]
-public record DeleteCustomerCommand : IRequest<Result>
-{
-    public string UserId { get; set; } = null!;
-}
-
-public class DeleteCustomerCommandValidator : AbstractValidator<DeleteCustomerCommand>
-{
-    public DeleteCustomerCommandValidator()
-    {
-    }
-}
 
 public class DeleteCustomerCommandHandler : IRequestHandler<DeleteCustomerCommand, Result>
 {

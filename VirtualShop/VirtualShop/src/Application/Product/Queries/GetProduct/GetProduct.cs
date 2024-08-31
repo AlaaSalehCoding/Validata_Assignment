@@ -3,18 +3,6 @@ using VirtualShop.Application.Common.Models;
 
 namespace VirtualShop.Application.Products.Queries.GetProduct;
 
-public record GetProductQuery : IRequest<Result>
-{
-    public long Id { get; set; }
-}
-
-public class GetProductQueryValidator : AbstractValidator<GetProductQuery>
-{
-    public GetProductQueryValidator()
-    {
-    }
-}
-
 public class GetProductQueryHandler : IRequestHandler<GetProductQuery, Result>
 {
     private readonly IProductRepository _productRepository;

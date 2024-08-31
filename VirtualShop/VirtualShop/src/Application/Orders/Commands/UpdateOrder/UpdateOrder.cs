@@ -6,28 +6,6 @@ using VirtualShop.Domain.Entities;
 
 namespace VirtualShop.Application.Orders.Commands.UpdateOrder;
 
-public record UpdateOrderCommand : IRequest<Result>
-{
-    public int Id { get; set; }
-    public DateTime? OrderDate { get; set; }
-    public decimal? TotalPrice { get; set; }
-    private class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<UpdateOrderCommand, Order>();
-        }
-    }
-}
-
-public class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
-{
-    public UpdateOrderCommandValidator()
-    {
-        RuleFor(u=>u.TotalPrice).GreaterThanOrEqualTo(0);
-    }
-}
-
 public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Result>
 {
     private readonly ICommonRepository<Order> _orderRrepo;
