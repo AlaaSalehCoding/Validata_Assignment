@@ -5,24 +5,11 @@ using VirtualShop.Domain.Constants;
 namespace VirtualShop.Application.Customer.Commands.UpdateUser;
 
 public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCommand>
-{
-    private readonly IIdentityService _identityService;
-    private readonly IUser _user;
-    private readonly ICommonRepository<Domain.Entities.Customer> _customerRepo;
-
-    public UpdateCustomerCommandValidator(
-        IIdentityService identityService,
-        IUser user,
-        ICommonRepository<Domain.Entities.Customer> customerRepo
-        )
-    {
-        _identityService = identityService;
-        _user = user;
-        _customerRepo = customerRepo;
-
+{ 
+    public UpdateCustomerCommandValidator( )
+    { 
         RuleFor(p => p.Id)
-             .GreaterThan(0)
-             .MustAsync(BeUniqueUserName).WithMessage("You don't have access to this Item.");
+             .GreaterThan(0);
         RuleFor(v => v.FirstName)
             .MinimumLength(1)
             .MaximumLength(50)
@@ -39,17 +26,5 @@ public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCo
             .NotEmpty()
             .Matches(@"^\d{5}(-\d{4})?$")
             .WithMessage("Postal Code is not valid.");
-    }
-    private async Task<bool> BeUniqueUserName(long id, CancellationToken cancellationToken)
-    {
-        var updatedCustomer = await _customerRepo.GetByIdAsync(id);
-        if (updatedCustomer == null) { return false; }
-
-        if (await _identityService.IsInRoleAsync(_user.Id ?? "", Roles.Administrator)) { return true; }
-
-        if (updatedCustomer.UserId == _user.Id) { return true; }
-
-        return false;
-
-    }
+    } 
 }

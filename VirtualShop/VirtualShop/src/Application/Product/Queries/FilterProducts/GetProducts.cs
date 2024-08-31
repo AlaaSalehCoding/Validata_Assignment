@@ -2,8 +2,8 @@
 using VirtualShop.Application.Common.Interfaces;
 
 namespace VirtualShop.Application.Product.Queries.FilterProducts;
- 
-public record FilterProductsQuery : IRequest<FilterProductsResponce>, IFilter
+
+public record FilterProductsQuery : IRequest<FilterProductsResponce>    
 {
     public SearchFilter? Search { get; set; }
     public SortFilter? Sort { get; set; }
@@ -38,14 +38,14 @@ public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, F
         if (query is not null)
         {
 
-            query = query.ApplySearch(request.Search)
-                         .ApplySorting(request.Sort);
+            query = query.ApplySearch(request.Search);
 
             result.Total = await query.CountAsync(); 
 
-            result.Items = await query.ApplyPagination(request.Pagination)
-                                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
-                                .ToListAsync();
+            result.Items = await query.ApplySorting(request.Sort)
+                                    .ApplyPagination(request.Pagination)
+                                    .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+                                    .ToListAsync();
         }
         return result;
     }

@@ -12,13 +12,13 @@ public class Product : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapPost(Create)
-            .MapPut(Update, "{id}")
-            .MapDelete(Delete, "{id}")
-            .MapGet(Get, "{id}")
-            .MapPost(Filter, "Filter");
+            .MapPost(CreateProduct)
+            .MapPut(UpdateProduct, "{id}")
+            .MapDelete(DeleteProduct, "{id}")
+            .MapGet(GetProduct, "{id}")
+            .MapPost(FilterProduct, "Filter");
     }
-    public async Task<IResult> Create(ISender sender, CreateProductCommand command)
+    public async Task<IResult> CreateProduct(ISender sender, CreateProductCommand command)
     {
         var result = await sender.Send(command);
         if (result.Succeeded)
@@ -29,8 +29,8 @@ public class Product : EndpointGroupBase
         {
             return Results.BadRequest(result);
         }
-    } 
-    public async Task<IResult> Update(ISender sender, string id, UpdateProductCommand command)
+    }
+    public async Task<IResult> UpdateProduct(ISender sender, string id, UpdateProductCommand command)
     {
         var resault = await sender.Send(command);
         if (resault.Succeeded)
@@ -43,26 +43,33 @@ public class Product : EndpointGroupBase
         }
     }
 
-    public async Task<IResult> Delete(ISender sender, long id)
+    public async Task<IResult> DeleteProduct(ISender sender, long id)
     {
         var command = new DeleteProductCommand() { Id = id };
-        var resault = await sender.Send(command);
-        if (resault.Succeeded)
+        var result = await sender.Send(command);
+        if (result.Succeeded)
         {
             return Results.NoContent();
         }
         else
         {
-            return Results.BadRequest(resault);
+            return Results.BadRequest(result);
         }
     }
-    public async Task<IResult> Get(ISender sender, string id)
+    public async Task<IResult> GetProduct(ISender sender, long id)
     {
-        var query = new GetProductQuery();
+        var query = new GetProductQuery() { Id = id };
         var result = await sender.Send(query);
-        return Results.Ok(result);
+        if (result.Succeeded)
+        {
+            return Results.Ok(result.SuccessStatus);
+        }
+        else
+        {
+            return Results.BadRequest(result);
+        }
     }
-    public async Task<IResult> Filter(ISender sender, FilterProductsQuery query)
+    public async Task<IResult> FilterProduct(ISender sender, FilterProductsQuery query)
     {
         var result = await sender.Send(query);
         return Results.Ok(result);

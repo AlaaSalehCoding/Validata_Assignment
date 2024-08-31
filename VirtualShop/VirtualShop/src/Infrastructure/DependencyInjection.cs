@@ -6,6 +6,7 @@ using VirtualShop.Application.Common.Interfaces;
 using VirtualShop.Application.Common.Repository;
 using VirtualShop.Application.Common.Uow;
 using VirtualShop.Domain.Constants;
+using VirtualShop.Infrastructure.Authorization;
 using VirtualShop.Infrastructure.Data;
 using VirtualShop.Infrastructure.Data.Interceptors;
 using VirtualShop.Infrastructure.Identity;
@@ -59,8 +60,11 @@ public static partial class DependencyInjection
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanDeactivateUser, policy => policy.RequireRole(Roles.Administrator)));
         services.AddAuthorization(options =>
-            options.AddPolicy(Policies.CanManageProducts, policy => policy.RequireRole(Roles.Administrator))); 
-
+            options.AddPolicy(Policies.CanManageProducts, policy => policy.RequireRole(Roles.Administrator)));
+        services.AddAuthorizationServices(configuration);
         return services;
     }
 }
+
+
+

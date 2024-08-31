@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Application.Order.Commands.CreateOrder;
-using VirtualShop.Application.Order.Commands.DeleteOrder;
-using VirtualShop.Application.Order.Commands.UpdateOrder;
-using VirtualShop.Application.Order.Queries.FilterOrders;
-using VirtualShop.Application.Order.Queries.GetOrder;
+﻿using CleanArchitecture.Application.Orders.Commands.CreateOrder;
+using VirtualShop.Application.Orders.Commands.DeleteOrder;
+using VirtualShop.Application.Orders.Commands.UpdateOrder;
+using VirtualShop.Application.Orders.Queries.FilterOrders;
+using VirtualShop.Application.Orders.Queries.GetOrder;
 namespace VirtualShop.Web.Endpoints;
 
 public class Order : EndpointGroupBase
@@ -11,13 +11,13 @@ public class Order : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapPost(Create)
-            .MapPut(Update, "{id}")
-            .MapDelete(Delete, "{id}")
-            .MapGet(Get, "{id}")
-            .MapPost(Filter, "Filter");
+            .MapPost(CreateOrder)
+            .MapPut(UpdateOrder, "{id}")
+            .MapDelete(DeleteOrder, "{id}")
+            .MapGet(GetOrder, "{id}")
+            .MapPost(FilterOrder, "Filter");
     }
-    public async Task<IResult> Create(ISender sender, CreateOrderCommand command)
+    public async Task<IResult> CreateOrder(ISender sender, CreateOrderCommand command)
     {
         var result = await sender.Send(command);
         if (result.Succeeded)
@@ -29,7 +29,7 @@ public class Order : EndpointGroupBase
             return Results.BadRequest(result);
         }
     }
-    public async Task<IResult> Update(ISender sender, string id, UpdateOrderCommand command)
+    public async Task<IResult> UpdateOrder(ISender sender, string id, UpdateOrderCommand command)
     {
         var resault = await sender.Send(command);
         if (resault.Succeeded)
@@ -41,7 +41,7 @@ public class Order : EndpointGroupBase
             return Results.BadRequest(resault);
         }
     }
-    public async Task<IResult> Delete(ISender sender, long id)
+    public async Task<IResult> DeleteOrder(ISender sender, long id)
     {
         var command = new DeleteOrderCommand() { Id = id };
         var result = await sender.Send(command);
@@ -54,15 +54,22 @@ public class Order : EndpointGroupBase
             return Results.BadRequest(result);
         }
     }
-    public async Task<IResult> Filter(ISender sender, FilterOrdersQuery query)
+    public async Task<IResult> FilterOrder(ISender sender, FilterOrdersQuery query)
     {
         var result = await sender.Send(query);
         return Results.Ok(result);
     }
-    public async Task<IResult> Get(ISender sender, string id)
+    public async Task<IResult> GetOrder(ISender sender, long id)
     {
-        var query = new GetOrderQuery();
+        var query = new GetOrderQuery() { Id = id };
         var result = await sender.Send(query);
-        return Results.Ok(result);
+        if (result.Succeeded)
+        {
+            return Results.Ok(result.SuccessStatus);
+        }
+        else
+        {
+            return Results.BadRequest(result);
+        }
     }
 }
