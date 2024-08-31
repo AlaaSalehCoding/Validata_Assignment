@@ -217,45 +217,6 @@
       }
     },
     "/api/Order/{id}": {
-      "put": {
-        "tags": [
-          "Order"
-        ],
-        "operationId": "UpdateOrder",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1
-          }
-        ],
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateOrderCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 2
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      },
       "delete": {
         "tags": [
           "Order"
@@ -550,26 +511,6 @@
           "orderDate": {
             "type": "string",
             "format": "date-time"
-          }
-        }
-      },
-      "UpdateOrderCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "orderDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "totalPrice": {
-            "type": "number",
-            "format": "decimal",
-            "nullable": true
           }
         }
       },

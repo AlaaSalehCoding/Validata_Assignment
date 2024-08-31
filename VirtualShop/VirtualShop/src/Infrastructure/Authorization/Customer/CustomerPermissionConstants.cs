@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 namespace VirtualShop.Infrastructure.Authorization.Customer;
 public static class CustomerPermissionConstants
 {
-    public const string CanUpdateCustomer = "CanUpdateCustomer";
+    public const string CanUpdateCustomer = nameof(CanUpdateCustomer);
 }
