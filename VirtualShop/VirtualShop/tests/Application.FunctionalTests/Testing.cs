@@ -66,7 +66,7 @@ public partial class Testing
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        var user = new ApplicationUser { UserName = userName, Email = userName }; 
+        var user = new ApplicationUser { UserName = userName, Email = userName };
 
         if (roles.Any(r => r.Equals(Roles.Customer)))
         {
@@ -77,7 +77,7 @@ public partial class Testing
                 LastName = "Test",
                 Address = "Test",
                 PostalCode = "Test"
-            }); 
+            });
         }
 
         var result = await userManager.CreateAsync(user, password);
@@ -153,7 +153,9 @@ public partial class Testing
     [OneTimeTearDown]
     public async Task RunAfterAnyTests()
     {
-        await _database.DisposeAsync();
-        await _factory.DisposeAsync();
+        if (_database != null)
+            await _database.DisposeAsync();
+        if (_factory != null)
+            await _factory.DisposeAsync();
     }
 }

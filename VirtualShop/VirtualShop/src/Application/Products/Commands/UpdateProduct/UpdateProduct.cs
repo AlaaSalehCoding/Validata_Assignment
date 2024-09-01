@@ -20,7 +20,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
         {
             return Result.Failure(["no such product!"]);
         }
-        _mapper.Map(product, request);
+        _mapper.Map( request, product);
         await _productRepository.UpdateAsync(product);
         return Result.Success();
     }

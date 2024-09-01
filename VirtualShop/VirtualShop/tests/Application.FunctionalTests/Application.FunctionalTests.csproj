@@ -39,5 +39,12 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\Web\Web.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Customer\Commands\" />
+      <Folder Include="Items\Commands\" />
+      <Folder Include="Orders\Commands\" />
+      <Folder Include="Orders\Queries\" />
+    </ItemGroup>
 
 </Project>

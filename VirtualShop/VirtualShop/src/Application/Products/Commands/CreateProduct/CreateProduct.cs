@@ -22,6 +22,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         }
         await _productRepository.AddAsync(product);
 
-        return Result.Success(new { Id = product.Id });
+        return Result.Success(product.Id );
     }
 }
