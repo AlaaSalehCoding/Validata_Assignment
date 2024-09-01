@@ -52,7 +52,7 @@ public partial class Testing
 
     public static async Task<string> RunAsDefaultUserAsync()
     {
-        return await RunAsUserAsync("test@local", "Testing1234!", Array.Empty<string>());
+        return await RunAsUserAsync("test@local", "Testing1234!", new[] { Roles.Customer});
     }
 
     public static async Task<string> RunAsAdministratorAsync()
@@ -76,7 +76,8 @@ public partial class Testing
                 FirstName = userName,
                 LastName = "Test",
                 Address = "Test",
-                PostalCode = "Test"
+                PostalCode = "Test", 
+                UserId = user.Id,
             });
         }
 

@@ -551,9 +551,7 @@
           "fieldName": {
             "type": "string"
           },
-          "fieldValue": {
-            "type": "string"
-          },
+          "fieldValue": {},
           "operator": {
             "$ref": "#/components/schemas/Operator"
           },

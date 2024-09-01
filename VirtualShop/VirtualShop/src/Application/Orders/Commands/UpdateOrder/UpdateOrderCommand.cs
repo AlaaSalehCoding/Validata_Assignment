@@ -5,7 +5,7 @@ namespace VirtualShop.Application.Orders.Commands.UpdateOrder;
 
 public record UpdateOrderCommand : IRequest<Result>
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
     public DateTime? OrderDate { get; set; } 
     private class Mapping : Profile
     {

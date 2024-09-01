@@ -25,8 +25,7 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Filte
         var result = new FilterOrdersResponce();
         var query = _orderRepo.Get(o => o.Customer != null && o.Customer.UserId == _user.Id,null, "Items.Product");
         if (query is not null)
-        {
-
+        { 
             query = query.ApplySearch(request.Search);
 
             result.Total = await query.CountAsync();

@@ -3,7 +3,7 @@
 public class SearchFilter
 {
     public string FieldName { get; set; } = null!;
-    public string FieldValue { get; set; } = null!;
+    public object FieldValue { get; set; } = null!;
     public Operator Operator { get; set; } = Operator.Equals;
     public LogicOperator LogicOperator { get; set; } = LogicOperator.And;
     public List<SearchFilter>? SubFilters { get; set; }
