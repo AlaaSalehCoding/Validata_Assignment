@@ -1,0 +1,13 @@
+
+
+dotnet new ca-usecase --name CreateTodoList2 --feature-name TodoLists2 --usecase-type command --return-type int
+
+dotnet new ca-usecase -n GetTodos2 -fn TodoLists2 -ut query -rt Todo2sVm
+
+
+dotnet new ca-usecase --name DeactivateUser --feature-name ShopUser --usecase-type command --return-type Result
+
+ dotnet ef migrations add "AddUserIsActiveField" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations
+ 
+ dotnet new ca-usecase --name CreateOrder --feature-name Order --usecase-type command --return-type Result
+ dotnet new ca-usecase -n GetOrder -fn Order -ut query -rt Result
